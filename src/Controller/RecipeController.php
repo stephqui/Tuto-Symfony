@@ -4,8 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Recipe;
 use App\Repository\RecipeRepository;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,7 +17,6 @@ class RecipeController extends AbstractController
         //On veut les recettes dont la durée est inf ou égale à...
         //La méthode est dans le repository
         $recipes = $recipeRepository->findWithDurationLowerThan(40);
-
 
         return $this->render('recipe/index.html.twig', [
             'recipes' => $recipes

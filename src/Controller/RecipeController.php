@@ -52,4 +52,9 @@ class RecipeController extends AbstractController
       'form'=>$form
     ]);
   }
+
+  #[Route('/recette/create', name: 'recipe.create')]
+  public function createRecipe() {
+    return $this->render('recipe/create.html.twig');
+  }
 }

@@ -73,4 +73,8 @@ class RecipeController extends AbstractController
       'form' => $form
     ]);
   }
+
+  public function deleteRecipe(Recipe $recipe, Request $request, EntityManagerInterface $em){
+    
+  }
 }

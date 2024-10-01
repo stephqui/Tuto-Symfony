@@ -18,7 +18,7 @@ class RecipeType extends AbstractType
             ->add('content')
             ->add('duration')
             ->add('save', SubmitType::class,[
-                'label'=> 'Modifier'
+                'label'=> 'Envoyer'
             ])
         ;
     }

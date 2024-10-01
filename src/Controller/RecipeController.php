@@ -20,7 +20,7 @@ class RecipeController extends AbstractController
 
     //On veut les recettes dont la durée est inf ou égale à...
     //La méthode est dans le repository
-    $recipes = $recipeRepository->findWithDurationLowerThan(40);
+    $recipes = $recipeRepository->findWithDurationLowerThan(100);
 
     return $this->render('recipe/index.html.twig', [
       'recipes' => $recipes
@@ -44,6 +44,7 @@ class RecipeController extends AbstractController
     $form = $this->createForm(RecipeType::class, $recipe);
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
+      $recipe->setUpdatedAt(new \DateTimeImmutable());
       $em->flush();
       $this->addFlash('success', 'La recette a bien été modifiée');
       return $this->redirectToRoute('recipe.index');
@@ -61,6 +62,8 @@ class RecipeController extends AbstractController
     $form = $this->createForm(RecipeType::class, $recipe);
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
+      $recipe->setCreatedAt(new \DateTimeImmutable());
+      $recipe->setUpdatedAt(new \DateTimeImmutable());
       $em->persist($recipe);
       $em->flush();
       $this->addFlash('success', 'La recette a bien été créée');

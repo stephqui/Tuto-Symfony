@@ -1,7 +1,9 @@
 <?php
+//On retrouve ici les attributs, qui permettent à l'ORM (Object Relationnal Mapping)
+//de comprendre comment les données seront sauvegardées dans la BDD
 
 namespace App\Entity;
-//test
+
 use App\Repository\RecipeRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;

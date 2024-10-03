@@ -1,4 +1,6 @@
 <?php
+//Cette classe sert à récupérer des enregistrements
+//On y met les méthodes qui permettent d'extraire des données depuis la BDD
 
 namespace App\Repository;
 

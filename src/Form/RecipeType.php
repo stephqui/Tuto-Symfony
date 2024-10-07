@@ -30,12 +30,11 @@ class RecipeType extends AbstractType
     {
         //On met une fonction si le slug est vide lors de l'envoi du formulaire
         $data = $event->getData();
-        if (empty($data(['slug']))) {
+        if (empty($data['slug'])) {
             $slugger = new AsciiSlugger();
             $data['slug'] = strtolower($slugger->slug($data['title']));
             $event->setData($data);
         }
-        dd($data);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

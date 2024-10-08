@@ -29,7 +29,7 @@ class RecipeType extends AbstractType
     public function autoSlug(PreSubmitEvent $event):void
     {
         //On met une fonction si le slug est vide lors de l'envoi du formulaire
-        $data = $event->getData();
+        $data = $event->getData();//Récupère les infos du formulaire
         if (empty($data['slug'])) {
             $slugger = new AsciiSlugger();
             $data['slug'] = strtolower($slugger->slug($data['title']));

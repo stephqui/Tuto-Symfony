@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Event\PreSubmitEvent;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\String\Slugger\AsciiSlugger;
@@ -24,6 +25,13 @@ class RecipeType extends AbstractType
                 'label' => 'Envoyer'
             ])
             ->addEventListener(FormEvents::PRE_SUBMIT, $this->autoSlug(...))
+            ->get('createdAt')->addEventListener(
+                FormEvents::POST_SUBMIT,
+                function (FormEvent $event) {
+                    
+                }
+
+            )
         ;
     }
     public function autoSlug(PreSubmitEvent $event):void

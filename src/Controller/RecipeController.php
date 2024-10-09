@@ -60,7 +60,7 @@ class RecipeController extends AbstractController
     $recipe = new Recipe;
     $form = $this->createForm(RecipeType::class, $recipe);
     $form->handleRequest($request);
-    if ($form->isSubmitted() && $form->isValid()) {
+    if ($form->isSubmitted() && $form->isValid()) {//automatiquement, on vérifie les contraintes en RecipeType aussi
       $em->persist($recipe);
       $em->flush();
       $this->addFlash('success', 'La recette a bien été créée');

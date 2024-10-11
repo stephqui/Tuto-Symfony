@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Event\PostSubmitEvent;
 use Symfony\Component\Form\Event\PreSubmitEvent;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
@@ -18,14 +19,16 @@ class RecipeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title')
+            ->add('title',TextType::class, [
+              'empty_data'=> ''])
             ->add('slug', TextType::class, [
               'required'=> false
             ])
-            ->add('content')
+            ->add('content',TextareaType::class, [
+              'empty_data'=> ''])
             ->add('duration')
             ->add('save', SubmitType::class, [
-                'label' => 'Envoyer'//on peut ajouter notre boutton
+                'label' => 'Envoyer'//on ajoute notre boutton
             ])
             ->addEventListener(FormEvents::PRE_SUBMIT, $this->autoSlug(...))
             ->addEventListener(FormEvents::POST_SUBMIT, $this->attachTimeStamps(...))
@@ -58,6 +61,7 @@ class RecipeType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Recipe::class,
+            'validation_groups'=>['Default', 'Extra']
         ]);
     }
 }

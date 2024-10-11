@@ -40,9 +40,14 @@ class RecipeController extends AbstractController
 
   #[Route('/recettes/{id}/edit', name: 'recipe.edit', methods:['GET', 'POST'])]
   public function editRecipe(Recipe $recipe, Request $request, EntityManagerInterface $em)
+  //Cette fois, on ne passe pas l'Id dans la fonction, mais un paramètre de type recette
+  //Le framework est assez intelligent pour comprendre qu'on recherche un Id, ce qui nous évite
+  //d'utiliser la méthode find de la fonction "show" ci-dessus.
+  //Quand on a un paramètre qui a un nom, on peut dire au framework directement "donne-moi l'objet"
+  //et il fera directement la requête.
   {
     $form = $this->createForm(RecipeType::class, $recipe);
-    $form->handleRequest($request);
+    $form->handleRequest($request);//Envoie le formulaire en POST
     if ($form->isSubmitted() && $form->isValid()) {
       $em->flush();
       $this->addFlash('success', 'La recette a bien été modifiée');

@@ -9,13 +9,9 @@ use Symfony\Component\Form\Event\PreSubmitEvent;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\String\Slugger\AsciiSlugger;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\Regex;
-use Symfony\Component\Validator\Constraints\Sequentially;
 
 class RecipeType extends AbstractType
 {
@@ -29,7 +25,7 @@ class RecipeType extends AbstractType
             ->add('content')
             ->add('duration')
             ->add('save', SubmitType::class, [
-                'label' => 'Envoyer'
+                'label' => 'Envoyer'//on peut ajouter notre boutton
             ])
             ->addEventListener(FormEvents::PRE_SUBMIT, $this->autoSlug(...))
             ->addEventListener(FormEvents::POST_SUBMIT, $this->attachTimeStamps(...))
@@ -49,7 +45,8 @@ class RecipeType extends AbstractType
     public function attachTimeStamps(PostSubmitEvent $event){
       //On veut remplir les champs de date selon les besoins
       $data = $event->getData();
-      if(!($data instanceof Recipe)){
+      if(!($data instanceof Recipe)){//On vérifie qu'on utilise on objet de type recipe, mais
+        //en général, ça n'arrive pas
         return;
       }
       $data->setUpdatedAt(new \DateTimeImmutable());

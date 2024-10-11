@@ -41,6 +41,7 @@ class Recipe
 
     #[ORM\Column(nullable: true)]
     #[Assert\Positive()]
+    #[Assert\LessThan(value: 10)]
     private ?int $duration = null;
 
     public function getId(): ?int

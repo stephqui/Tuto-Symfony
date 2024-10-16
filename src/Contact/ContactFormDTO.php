@@ -12,4 +12,10 @@ class ContactFormDTO
   function getMail(){
     
   }
+  function getName(){
+    
+  }
+  function getMessage(){
+    
+  }
 }

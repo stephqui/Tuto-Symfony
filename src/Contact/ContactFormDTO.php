@@ -1,21 +1,25 @@
 <?php
 
 namespace App\Contact;
-
 class ContactFormDTO
 {
 
   private $mail;
   private $name;
   private $message;
-
-  function getMail(){
-    
+  public function __construct()
+  {
   }
-  function getName(){
-    
+  function getMail()
+  {
+    return $this->mail;
   }
-  function getMessage(){
-    
+  function getName()
+  {
+    return $this->name;
+  }
+  function getMessage()
+  {
+    return $this->message;
   }
 }

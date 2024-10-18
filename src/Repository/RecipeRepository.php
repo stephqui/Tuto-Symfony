@@ -1,6 +1,7 @@
 <?php
 //Cette classe sert à récupérer des enregistrements
 //On y met les méthodes qui permettent d'extraire des données depuis la BDD
+//Dans notre cas, le Repo va récupérer les recettes
 
 namespace App\Repository;
 

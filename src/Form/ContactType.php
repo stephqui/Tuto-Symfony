@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Contact\ContactFormDTO;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,6 +16,9 @@ class ContactType extends AbstractType
             ->add('name')
             ->add('mail')
             ->add('message')
+            ->add('save', SubmitType::class, [
+                'label' => 'Envoyer'
+                ])
         ;
     }
 

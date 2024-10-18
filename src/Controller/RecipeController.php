@@ -16,8 +16,6 @@ class RecipeController extends AbstractController
   #[Route('/recettes', name: 'recipe.index')]
   public function index(Request $request, RecipeRepository $recipeRepository): Response
   {
-    //dd($recipeRepository->findTotalDuration());
-
     //On veut les recettes dont la durée est inf ou égale à...
     //La méthode est dans le repository
     $recipes = $recipeRepository->findWithDurationLowerThan(100);

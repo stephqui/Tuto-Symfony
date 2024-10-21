@@ -18,22 +18,4 @@ class HomeController extends AbstractController
     {
         return $this->render('home/index.html.twig');
     }
-
-    #[Route("/contact", name: "contact")]
-    public function contactForm(ContactFormDTO $contactFormDTO){
-        $formContact = $this->createForm(ContactType::class,$contactFormDTO);
-        dd($formContact);
-        return $this->render('contact/contact.html.twig',[
-            'formContact' => $formContact
-        ]);
-    }
-
-    public function manageMail(MessageBusInterface $bus): Response
-    {
-        // will cause the SmsNotificationHandler to be called
-        $bus->dispatch(new ContactFormDTO());
-
-        // ...
-        return $this->redirectToRoute('home');
-    }
 }

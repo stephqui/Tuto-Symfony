@@ -1,0 +1,18 @@
+<p>Une nouvelle demande de contact a été reçue</p>
+
+	You signed up as "{{ data.name }}" the following email:
+</p>
+<ul>
+<li>Nom : {{data.name}}</li>
+<li>Email : {{data.mail}}</li>
+
+</ul>
+<p>
+	<strong>Message</strong>:<br/>
+	{{data.message | nl2br}}
+</p>
+<p>
+	<a href="#">Activate your account</a>
+	(this link is valid until
+	{{ expiration_date|date('F jS') }})
+</p>

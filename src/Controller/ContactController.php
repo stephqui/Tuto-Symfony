@@ -21,31 +21,29 @@ class ContactController extends AbstractController
 
         //todo a supprimer
         $data->name = 'John DOE';
-        $data->mail = 'john';
+        $data->mail = 'john@doe.fr';
         $data->message = 'Message bonjour';
 
         $formContact = $this->createForm(ContactType::class, $data);
         $formContact->handleRequest($request);
         if ($formContact->isSubmitted() && $formContact->isValid()) {
-            //envoyer email
             $email = (new TemplatedEmail())
                 ->from($data->mail)
                 ->to('contact@demo.fr')
                 ->subject('Demande depuis le site localhost:8000')
                 ->text($data->message)
-                ->htmlTemplate('contact/signup.html.twig')
+                ->htmlTemplate('emails/signup.html.twig')
                 ->context([
                     'expiration_date' => new \DateTime('+7 days'),
-                    'name' => $data->name,
-                ])
-            ;
+                    'data' => $data,
+                ]);
             $mailer->send($email);
-
+            $this->addFlash('success', 'Votre mail a bien été envoyé');
+            $this->redirectToRoute('contact');
         }
         return $this->render('contact/contact.html.twig', [
-            'formContact' => $formContact,
-            'name'=>$data->name,
-            'email'=>$data->mail
+            'controller_name' => 'contactcontroller',
+            'formContact' => $formContact
         ]);
     }
 }

@@ -9,7 +9,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Attribute\Route;
 
 class ContactController extends AbstractController
@@ -30,7 +29,7 @@ class ContactController extends AbstractController
             $email = (new TemplatedEmail())
                 ->from($data->mail)
                 ->to('contact@demo.fr')
-                ->subject('Demande depuis le site localhost:8000')
+                ->subject('Demande de contact')
                 ->text($data->message)
                 ->htmlTemplate('emails/signup.html.twig')
                 ->context([

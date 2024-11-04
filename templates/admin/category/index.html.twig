@@ -5,7 +5,7 @@
 {% block body %}
 	<div class="row">
 		<div>
-			<a class="btn btn btn-primary" href="{{ path('admin.recipe.create')}}">Création catégorie</a>
+			<a class="btn btn btn-primary" href="{{ path('admin.category.create')}}">Création catégorie</a>
 		</div>
 	</div>
 	<table class="table">
@@ -19,12 +19,12 @@
 			{% for category in categories %}
 				<tr>
 					<td>
-						<a href="{{ path('admin.recipe.edit',{id:category.id}) }}">{{category.name}}</a>
+						<a href="{{ path('admin.category.edit',{id:category.id}) }}">{{category.name}}</a>
 					</td>
 					<td>
 						<div class="d-flex gap-1">
-							<a class="btn btn-primary" href="{{ path('admin.recipe.edit',{id:recipe.id}) }}">Editer</a>
-							<form method="post" action="{{ path('admin.recipe.delete',{id:recipe.id}) }}">
+							<a class="btn btn-primary" href="{{ path('admin.category.edit',{id:category.id}) }}">Editer</a>
+							<form method="post" action="{{ path('admin.recipe.delete',{id:category.id}) }}">
 								<input type="hidden" name "_method" value="DELETE"/>
 								<button type="submit" class="btn btn-danger">Supprimer</button>
 							</form>

@@ -60,4 +60,13 @@ class CategoryController extends AbstractController
             'form' => $form
         ]);
     }
+
+    #[Route('/{id}', name: 'delete', methods: ['DELETE'], requirements: ['id' => Requirement::DIGITS])]
+    public function deleteCategory(Category $category, EntityManagerInterface $em)
+    {
+        $em->remove($category);
+        $em->flush();
+        $this->addFlash('success', 'La catégorie a bien été supprimée');
+        return $this->redirectToRoute('admin.category.index');
+    }
 }

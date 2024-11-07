@@ -1,6 +1,5 @@
 # see https://symfony.com/doc/current/reference/configuration/framework.html
 framework:
-    http_method_override: true
     secret: '%env(APP_SECRET)%'
     #csrf_protection: true
 
@@ -9,6 +8,7 @@ framework:
 
     #esi: true
     #fragments: true
+    http_method_override: true
 
 when@test:
     framework:

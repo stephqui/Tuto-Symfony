@@ -12,7 +12,7 @@
 		<thead>
 			<tr>
 				<th>Titre</th>
-				<th>Actions</th>
+				<th style="width: 200px">Actions</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -24,8 +24,8 @@
 					<td>
 						<div class="d-flex gap-1">
 							<a class="btn btn-primary" href="{{ path('admin.recipe.edit',{id:recipe.id}) }}">Editer</a>
-							<form method="post" action="{{ path('admin.recipe.delete',{id:recipe.id}) }}">
-								<input type="hidden" name "_method" value="DELETE"/>
+							<form action="{{ path('admin.recipe.delete',{id:recipe.id}) }}" method="post">
+								<input type="hidden" name="_method" value="DELETE">
 								<button type="submit" class="btn btn-danger">Supprimer</button>
 							</form>
 						</div>

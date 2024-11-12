@@ -1,6 +1,7 @@
 <?php
-//Cette classe générique va générer des Listener, cela évitera de les recopier
-//dans les RecipeType et CategoryType
+//Cette classe générique va générer des Listener (pour le remplissage du formulaire,
+//ça remplit un slug si besoin, et les champs date).
+//cela évitera de les recopier dans les RecipeType et CategoryType
 namespace App\Form;
 
 use Symfony\Component\Form\Event\PostSubmitEvent;

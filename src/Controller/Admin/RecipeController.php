@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Recipe;
 use App\Form\RecipeType;
+use App\Repository\CategoryRepository;
 use App\Repository\RecipeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,12 +18,20 @@ use Symfony\Component\Routing\Requirement\Requirement;
 class RecipeController extends AbstractController
 {
   #[Route('/', name: 'index')]
-  public function index(RecipeRepository $recipeRepository): Response
+  public function index(RecipeRepository $recipeRepository, CategoryRepository $categoryRepository, EntityManagerInterface $entityManagerInterface): Response
   {
+    //$platPrincipal = $categoryRepository->findOneBy(['slug' => 'plat-principal']);
+    //$pates = $recipeRepository->findOneBy(['slug' => 'pates-bolognaises']);
+    //Si on veut attacher une categorie au plat, on utilise les setters
+    //$pates->setCategory($platPrincipal);
+    //$entityManagerInterface->flush();
+    //dd($pates);
+
+    //*********** */
     //On veut les recettes dont la durée est inf ou égale à...
     //La méthode est dans le repository
     $recipes = $recipeRepository->findWithDurationLowerThan(100);
-
+    
     return $this->render('admin/recipe/index.html.twig', [
       'recipes' => $recipes
     ]);

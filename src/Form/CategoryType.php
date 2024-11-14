@@ -27,11 +27,19 @@ class CategoryType extends AbstractType
                 'required' => false,
                 'empty_data' => ''
             ])
+            # Pour éviter le problème de requetes n+1, on utilise les "types":EntityType #
             ->add('recipes', EntityType::class, [
                 'class' => Recipe::class,
                 'choice_label' => 'title',
                 'multiple' => true,
-                'by_reference' => false,
+                'expanded'=>true,
+                'by_reference' => false,# ça, CA PEUT ETRE UN VERITABLE ENFER A DEBUGUER
+                #c'est pour contourner les subtilités des
+                #formulaires qui utilisent par défaut les setters, quand on a OneToMany - ManyToMany
+                #Il va modifier les propriétés à la volée (ici l'id), et même si on flush, on ne va
+                #pas modifier en bdd. En mettant false, il va utiliser les méthodes "add"
+                # et "remove"; ce sont ces méthodes qui viennent modifier l'objet lorsqu'il
+                #est attaché et mettent le setCategory convenablement#
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Enregistrer'

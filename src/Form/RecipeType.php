@@ -27,9 +27,11 @@ class RecipeType extends AbstractType
       ->add('slug', TextType::class, [
         'required' => false
       ])
-      ->add('category', EntityType::class, [
+      # Pour éviter le problème de requetes n+1, on utilise les "types":EntityType #
+        ->add('category', EntityType::class, [
         'class' => Category::class,
         'choice_label' => 'name',
+        'expanded'=>true,
       ])
       ->add('content', TextareaType::class, [
         'empty_data' => ''

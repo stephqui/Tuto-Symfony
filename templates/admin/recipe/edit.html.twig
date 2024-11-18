@@ -3,5 +3,8 @@
 {% block title "Recette : " ~ recipe.title %}
 
 {% block body %}
-	{{ form(form) }}
-{% endblock %}
+	<h1>{{recipe.title}}</h1>
+
+	<p><img src="/recettes/images/{{recipe.thumbnail}}" alt="rien">
+	</p>
+	{{ form(form) }}{% endblock %}

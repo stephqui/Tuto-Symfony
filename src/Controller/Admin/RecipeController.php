@@ -48,7 +48,16 @@ class RecipeController extends AbstractController
     $form = $this->createForm(RecipeType::class, $recipe);
     $form->handleRequest($request);//Envoie le formulaire en POST
     if ($form->isSubmitted() && $form->isValid()) {
-      $em->flush();
+      /**
+       * @var \Symfony\Component\HttpFoundation\File\UploadedFile $file
+       */
+      $file=$form->get('thumbnailFile')->getData();//On récupère le fichier
+      $fileName=$recipe->getId() . '.'.$file->getClientOriginalExtension();//Genère un nom de fichier
+
+      //On déplace le fichier image dans '/public/recettes/images'
+      $file->move($this->getParameter('kernel.project_dir').'/public/recettes/images', $fileName);
+      $recipe->setThumbnail($fileName);//nomme le champ thumbnail
+      $em->flush();//Sauvegarde dans la Bdd
       $this->addFlash('success', 'La recette a bien été modifiée');
       return $this->redirectToRoute('admin.recipe.index');
     }

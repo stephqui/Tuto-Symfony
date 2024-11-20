@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
+use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 #[Route("/admin/recettes", name: 'admin.recipe.')]
 
@@ -38,25 +39,18 @@ class RecipeController extends AbstractController
   }
 
   #[Route('/{id}', name: 'edit', methods: ['GET', 'POST'], requirements: ['id' => Requirement::DIGITS])]
-  public function editRecipe(Recipe $recipe, Request $request, EntityManagerInterface $em)
+  public function editRecipe(Recipe $recipe, Request $request, EntityManagerInterface $em, UploaderHelper $helper)
+
   //Cette fois, on ne passe pas l'Id dans la fonction, mais un paramètre de type recette
   //Le framework est assez intelligent pour comprendre qu'on recherche un Id, ce qui nous évite
   //d'utiliser la méthode find de la fonction "show" ci-dessus.
   //Quand on a un paramètre qui a un nom, on peut dire au framework directement "donne-moi l'objet"
   //et il fera directement la requête.
   {
+    //dd($helper->asset($recipe, 'thumbnailFile'));petit helper pour voir le path du fichier
     $form = $this->createForm(RecipeType::class, $recipe);
     $form->handleRequest($request);//Envoie le formulaire en POST
     if ($form->isSubmitted() && $form->isValid()) {
-      /**
-       * @var \Symfony\Component\HttpFoundation\File\UploadedFile $file
-       */
-      $file=$form->get('thumbnailFile')->getData();//On récupère le fichier
-      $fileName=$recipe->getId() . '.'.$file->getClientOriginalExtension();//Genère un nom de fichier
-
-      //On déplace le fichier image dans '/public/recettes/images'
-      $file->move($this->getParameter('kernel.project_dir').'/public/recettes/images', $fileName);
-      $recipe->setThumbnail($fileName);//nomme le champ thumbnail
       $em->flush();//Sauvegarde dans la Bdd
       $this->addFlash('success', 'La recette a bien été modifiée');
       return $this->redirectToRoute('admin.recipe.index');

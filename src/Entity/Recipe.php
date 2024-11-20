@@ -56,7 +56,11 @@ class Recipe
     private ?string $thumbnail = null;
 
     //Sert à gérer les images: ajout, remplacement, suppression...etc..
-    //On utilise le bundle Vich 
+    //On utilise le bundle Vich. Le mapping vient du fichier vich_uploader
+    //Cela permet de nous focaliser sur les données et non pas sur l'aspect logique de
+    //suppression, modif...etc...
+    //fileNameProperty: lorsqu'il sauvegarde le fichier, il récupère les infos du fichier (la)
+    //version renommée) et on dit dans quelle propriété il va devoir sauver le nom du fichier (ici "thumbnail")
     #[Vich\UploadableField(mapping: 'recipes', fileNameProperty: 'thumbnail')]
     #[Assert\Image()]
     private ?File $thumbnailFile = null;

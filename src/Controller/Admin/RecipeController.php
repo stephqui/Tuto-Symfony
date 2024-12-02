@@ -12,13 +12,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 #[Route("/admin/recettes", name: 'admin.recipe.')]
+#[IsGranted('ROLE_ADMIN')]
 
 class RecipeController extends AbstractController
 {
   #[Route('/', name: 'index')]
+
   public function index(RecipeRepository $recipeRepository, CategoryRepository $categoryRepository, EntityManagerInterface $entityManagerInterface): Response
   {
     //$platPrincipal = $categoryRepository->findOneBy(['slug' => 'plat-principal']);
@@ -27,8 +30,6 @@ class RecipeController extends AbstractController
     //$pates->setCategory($platPrincipal);
     //$entityManagerInterface->flush();
     //dd($pates);
-
-    $this->denyAccessUnlessGranted('ROLE_USER');
 
     //*********** */
     //On veut les recettes dont la durée est inf ou égale à...

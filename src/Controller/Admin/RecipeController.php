@@ -28,6 +28,8 @@ class RecipeController extends AbstractController
     //$entityManagerInterface->flush();
     //dd($pates);
 
+    $this->denyAccessUnlessGranted('ROLE_USER');
+
     //*********** */
     //On veut les recettes dont la durée est inf ou égale à...
     //La méthode est dans le repository

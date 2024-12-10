@@ -22,7 +22,7 @@ class RecipeController extends AbstractController
 {
   #[Route('/', name: 'index')]
 
-  public function index(RecipeRepository $recipeRepository, CategoryRepository $categoryRepository, EntityManagerInterface $entityManagerInterface): Response
+  public function index(RecipeRepository $recipeRepository, Request $request): Response
   {
     //$platPrincipal = $categoryRepository->findOneBy(['slug' => 'plat-principal']);
     //$pates = $recipeRepository->findOneBy(['slug' => 'pates-bolognaises']);
@@ -34,7 +34,7 @@ class RecipeController extends AbstractController
     //*********** */
     //On veut les recettes dont la durée est inf ou égale à...
     //La méthode est dans le repository
-    $recipes = $recipeRepository->findWithDurationLowerThan(100);
+    $recipes = $recipeRepository->paginateRecipes($request);
     
     return $this->render('admin/recipe/index.html.twig', [
       'recipes' => $recipes

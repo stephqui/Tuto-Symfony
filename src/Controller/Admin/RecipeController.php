@@ -7,6 +7,7 @@ use App\Form\RecipeType;
 use App\Repository\CategoryRepository;
 use App\Repository\RecipeRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Query;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,9 +34,14 @@ class RecipeController extends AbstractController
 
     //*********** */
     //On veut les recettes dont la durée est inf ou égale à...
-    //La méthode est dans le repository
-    $recipes = $recipeRepository->paginateRecipes($request);
-    
+    //La méthode est dans le repository -> elle n'est plus appelée
+    //*****************************************
+
+    //On recupère la page courante depuis un QueryParameter
+    $currentPage = $request->query->getInt('currentPage', 1);
+
+    $recipes = $recipeRepository->paginateRecipes($currentPage);
+
     return $this->render('admin/recipe/index.html.twig', [
       'recipes' => $recipes
     ]);

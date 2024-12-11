@@ -38,12 +38,13 @@ class RecipeController extends AbstractController
     //*****************************************
 
     //On recupère la page courante depuis un QueryParameter
-    $currentPage = $request->query->getInt('currentPage', 1);
+    $page = $request->query->getInt('page', 1);
 
-    $recipes = $recipeRepository->paginateRecipes($currentPage);
+    $recipes = $recipeRepository->paginateRecipes($page);
 
     return $this->render('admin/recipe/index.html.twig', [
       'recipes' => $recipes
+
     ]);
   }
 

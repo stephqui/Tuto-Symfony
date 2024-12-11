@@ -40,6 +40,7 @@ class Recipe
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\Length(min: 50)]
+    #[Groups(['recipes.show'])]
     private string $content = '';
 
     #[ORM\Column]

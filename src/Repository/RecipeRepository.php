@@ -29,6 +29,10 @@ class RecipeRepository extends ServiceEntityRepository
             $this->createQueryBuilder('r')->leftJoin('r.category', 'c')->select('r', 'c'),
             $page,
             2,
+            [
+                'distinct'=>false,
+                'sortFieldAllowList'=>['r.id', 'r.title']
+            ]
         );
 
         /*

@@ -1,5 +1,9 @@
 <?php
 
+//DTO : Data Transfert Object
+//Objet qui permet de représenter des données qui sont transférées
+//On pourrait passer un tableau, mais l'avantage est d'avoir des objets de bon type.
+
 namespace App\Contact;
 use Symfony\Component\Validator\Constraints as Assert;
 class ContactDTO

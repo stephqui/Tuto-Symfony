@@ -29,18 +29,18 @@ class Recipe
     #[ORM\Column(length: 80)]
     #[Assert\Length(min: 5, groups: ['Extra'])]
     #[BanWord(groups: ['Extra'])]
-    #[Groups(['recipes.index'])]
+    #[Groups(['recipes.index', 'recipes.cerate'])]
     private string $title = '';
 
     #[ORM\Column(length: 80)]
     #[Assert\Length(min: 5)]
     #[Assert\Regex('/^[a-z0-9]+(?:-[a-z0-9]+)*$/', message: "Ce slug n'est pas au bon format")]
-    #[Groups(['recipes.index'])]
+    #[Groups(['recipes.index', 'recipes.cerate'])]
     private string $slug = '';
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\Length(min: 50)]
-    #[Groups(['recipes.show'])]
+    #[Groups(['recipes.show', 'recipes.cerate'])]
     private string $content = '';
 
     #[ORM\Column]
@@ -52,7 +52,7 @@ class Recipe
     #[ORM\Column(nullable: true)]
     #[Assert\Positive()]
     #[Assert\LessThan(value: 240)]
-    #[Groups(['recipes.index'])]
+    #[Groups(['recipes.index', 'recipes.cerate'])]
     private ?int $duration = null;
 
     #[ORM\ManyToOne(inversedBy: 'recipes', cascade: ['persist'])]

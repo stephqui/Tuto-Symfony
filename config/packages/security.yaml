@@ -9,12 +9,24 @@ security:
             entity:
                 class: App\Entity\User
                 property: username
+
+        # On configure un nouveau provider
+        api_user_provider:
+            entity:
+                class: App\Entity\User
+                property: apiToken
         # used to reload user from session & other features (e.g. switch_user)
         # used to reload user from session & other features (e.g. switch_user)
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        api:
+            pattern: ^/api/
+            provider: app_user_provider
+            custom_authenticator: App\Security\APIAuthenticator
+            stateless : true
+            lazy: true
         main:
             lazy: true
             provider: app_user_provider

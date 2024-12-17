@@ -17,7 +17,7 @@ class APIAuthenticator extends AbstractAuthenticator
 
     public function supports(Request $request): ?bool
     {;
-        //dd($request->headers);
+        dd($request->headers);
         return $request->headers->has('Authorization') &&
             str_contains($request->headers->get('Authorization'), 'Bearer ');
     }

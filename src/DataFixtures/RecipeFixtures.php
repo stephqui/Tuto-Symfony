@@ -16,7 +16,8 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class RecipeFixtures extends Fixture implements DependentFixtureInterface
 {
-    public function __construct(private readonly SluggerInterface $slugger){
+    public function __construct(private readonly SluggerInterface $slugger)
+    {
 
     }
     public function load(ObjectManager $manager): void
@@ -24,19 +25,19 @@ class RecipeFixtures extends Fixture implements DependentFixtureInterface
         $faker = Factory::create('fr_FR');
         $faker->addProvider(new Restaurant($faker));
 
-        $categories=['Plat chaud', 'Dessert', 'Entrrée', 'Gouter'];
-        foreach ($categories as $c){
-            $category=(new Category())
-            ->setName($c)
-            ->setSlug($this->slugger->slug($c))
-            ->setUpdatedAt(\DateTimeImmutable::createFromMutable($faker->dateTime()))
-            ->setCreatedAt(\DateTimeImmutable::createFromMutable($faker->dateTime()));
+        $categories = ['Plat chaud', 'Dessert', 'Entrrée', 'Gouter'];
+        foreach ($categories as $c) {
+            $category = (new Category())
+                ->setName($c)
+                ->setSlug($this->slugger->slug($c))
+                ->setUpdatedAt(\DateTimeImmutable::createFromMutable($faker->dateTime()))
+                ->setCreatedAt(\DateTimeImmutable::createFromMutable($faker->dateTime()));
             $manager->persist($category);
-            $this->addReference($c,$category);
+            $this->addReference($c, $category);
         }
 
         for ($i = 1; $i <= 10; $i++) {
-            $title=$faker->foodName();
+            $title = $faker->foodName();
             $recipes = (new Recipe())
                 ->setTitle($title)
                 ->setSlug($this->slugger->slug($title))
@@ -44,13 +45,15 @@ class RecipeFixtures extends Fixture implements DependentFixtureInterface
                 ->setCreatedAt(\DateTimeImmutable::createFromMutable($faker->dateTime()))
                 ->setContent($faker->paragraphs(10, true))
                 ->setCategory($this->getReference($faker->randomElement($categories)))
+                ->setUser($this->getReference('USER' . $faker->numberBetween(1, 10)))
                 ->setDuration($faker->numberBetween(10, 60));
-                $manager->persist($recipes);
+            $manager->persist($recipes);
         }
 
         $manager->flush();
     }
-    public function getDependencies(){
+    public function getDependencies()
+    {
         //C'est pour donner un ordre de traitement des fixtures en cas
         //de dépendances des unes par rapport aux autres
         return [UserFixtures::class];

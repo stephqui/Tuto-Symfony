@@ -6,6 +6,7 @@ use App\Entity\Recipe;
 use App\Form\RecipeType;
 use App\Repository\CategoryRepository;
 use App\Repository\RecipeRepository;
+use App\Security\Voter\RecipeVoter;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,7 +18,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 #[Route("/admin/recettes", name: 'admin.recipe.')]
-#[IsGranted('ROLE_ADMIN')]
+//#[IsGranted('ROLE_ADMIN')]
 
 class RecipeController extends AbstractController
 {
@@ -49,6 +50,7 @@ class RecipeController extends AbstractController
   }
 
   #[Route('/{id}', name: 'edit', methods: ['GET', 'POST'], requirements: ['id' => Requirement::DIGITS])]
+  #[IsGranted(RecipeVoter::EDIT, subject:'recipe')]
   public function editRecipe(Recipe $recipe, Request $request, EntityManagerInterface $em, UploaderHelper $helper)
 
   //Cette fois, on ne passe pas l'Id dans la fonction, mais un paramètre de type recette

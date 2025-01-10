@@ -6,7 +6,7 @@ use App\Contact\ContactDTO;
 
 class ContactRequestEvent
 {
-    public function __construct(public ContactDTO $data)
+    public function __construct(public readonly ContactDTO $data)
     {
         
     }

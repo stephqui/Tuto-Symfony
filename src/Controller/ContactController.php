@@ -24,8 +24,16 @@ class ContactController extends AbstractController
         $formContact = $this->createForm(ContactType::class, $data);
         $formContact->handleRequest($request);
         if ($formContact->isSubmitted() && $formContact->isValid()) {
-            $dispatcher->dispatch(new ContactRequestEvent($data));
-            /*
+            /*try {      
+                echo ('on try ?')  ;
+                dd($data);
+                $dispatcher->dispatch(new ContactRequestEvent($data));
+
+                $this->addFlash('success', 'Votre mail a bien été envoyé');
+            } catch (\Exception $e) {
+                $this->addFlash('danger', 'Impossible d\'envoyer votre mail');
+            }*/
+            
             try {
                 $email = (new TemplatedEmail())
                     ->from($data->mail)
@@ -43,7 +51,7 @@ class ContactController extends AbstractController
             } catch (\Exception $e) {
                 $this->addFlash('danger', 'Impossible d\'envoyer votre mail');
             }
-            */
+            
         }
         return $this->render('contact/contact.html.twig', [
             'controller_name' => 'contactcontroller',

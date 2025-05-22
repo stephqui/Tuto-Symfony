@@ -96,7 +96,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
-        if ($this->email === 'john@doe.fr') {
+        if ($this->email === 'admin@doe.fr') {
             $roles[] = 'ROLE_ADMIN';
         }
         if ($this->isVerified) {

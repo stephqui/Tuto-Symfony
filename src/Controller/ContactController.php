@@ -24,15 +24,15 @@ class ContactController extends AbstractController
         $formContact = $this->createForm(ContactType::class, $data);
         $formContact->handleRequest($request);
         if ($formContact->isSubmitted() && $formContact->isValid()) {
-            /*try {      
+            try {      
                 echo ('on try ?')  ;
-                dd($data);
+                //dd($data);
                 $dispatcher->dispatch(new ContactRequestEvent($data));
 
                 $this->addFlash('success', 'Votre mail a bien été envoyé');
             } catch (\Exception $e) {
                 $this->addFlash('danger', 'Impossible d\'envoyer votre mail');
-            }*/
+            }
             
             try {
                 $email = (new TemplatedEmail())

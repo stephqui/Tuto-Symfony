@@ -5,6 +5,9 @@
 {% block body %}
 	<h1>{{recipe.title}}</h1>
 
-	<p><img src="{{vich_uploader_asset(recipe, 'thumbnailFile')}}" alt="img absente">
-	</p>
-	{{ form(form) }}{% endblock %}
+	<img src="{{vich_uploader_asset(recipe, 'thumbnailFile')}}" alt="img absente">
+
+	<turbo-frame id="recipe_{{recipe.id}}">
+		{{ form(form, {action: path('admin.recipe.edit',{id:recipe.id})}) }}
+		</turbo-frame>
+	{% endblock %}

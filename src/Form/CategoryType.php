@@ -28,7 +28,7 @@ class CategoryType extends AbstractType
                 'empty_data' => ''
             ])
             # Pour éviter le problème de requetes n+1, on utilise les "types":EntityType #
-            ->add('recipes', EntityType::class, [
+           /* ->add('recipes', EntityType::class, [
                 'class' => Recipe::class,
                 'choice_label' => 'title',
                 'multiple' => true,
@@ -40,7 +40,7 @@ class CategoryType extends AbstractType
                 #pas modifier en bdd. En mettant false, il va utiliser les méthodes "add"
                 # et "remove"; ce sont ces méthodes qui viennent modifier l'objet lorsqu'il
                 #est attaché et mettent le setCategory convenablement#
-            ])
+            ]) */
             ->add('save', SubmitType::class, [
                 'label' => 'Enregistrer'
             ])

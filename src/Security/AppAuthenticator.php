@@ -51,7 +51,8 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($targetPath);
         }
 
-        return new RedirectResponse('admin/recipe/index.html.twig');
+        //return new RedirectResponse('admin/recipe/index.html.twig');
+        return new RedirectResponse('admin/recettes/');
     }
 
     protected function getLoginUrl(Request $request): string

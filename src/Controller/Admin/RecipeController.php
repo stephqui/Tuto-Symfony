@@ -67,6 +67,7 @@ class RecipeController extends AbstractController
     if ($form->isSubmitted() && $form->isValid()) {
       $em->flush();//Sauvegarde dans la Bdd
       $this->addFlash('success', 'La recette a bien été modifiée');
+      echo "ca valide handle ?";
       return $this->redirectToRoute('admin.recipe.index');
     }
     return $this->render('admin/recipe/edit.html.twig', [

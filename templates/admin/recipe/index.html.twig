@@ -22,9 +22,9 @@
 				<tr>
 					<td>{{recipe.id}}</td>
 					<td>
-						<turbo-frame id="recipe_{{recipe.id}}">
+						{#<turbo-frame id="recipe_{{recipe.id}}">#}
 							<a href="{{ path('admin.recipe.edit',{id:recipe.id}) }}">{{recipe.title}}</a>
-						</turbo-frame>
+						{#</turbo-frame>#}
 					</td>
 
 					{#Affiche le nom et si null, le filtre 'default' permet d'éviter une erreur affichage #}

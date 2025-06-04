@@ -29,14 +29,17 @@ class RecipeType extends AbstractType
       ->add('slug', TextType::class, [
         'required' => false
       ])
-      ->add('thumbnailFile', FileType::class)
+      ->add('thumbnailFile', FileType::class, [
+        'required' => false
+      ])
       
       # Pour éviter le problème de requetes n+1, on utilise les "types":EntityType #
-        ->add('category', EntityType::class, [
-        'class' => Category::class,
-        'choice_label' => 'name',
-        'expanded'=>false,
-      ])
+        ->add('category', CategoryAutocompleteField::class)
+      /* ->add('category', EntityType::class, [
+        {'class' => Category::class,
+        {'choice_label' => 'name',
+        {'autocomplete'=>true,
+      {])*/
       ->add('content', TextareaType::class, [
         'empty_data' => ''
       ])
